@@ -9,7 +9,8 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const uri = process.env.ATLAS_URI;
+
+const uri = "mongodb+srv://nkr:sudhankr@todojs.avhq4bp.mongodb.net/todojs?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
 connection.once('open', () => {
@@ -22,16 +23,20 @@ connection.once('open', () => {
 
 
 const schema = new mongoose.Schema({
-    name: String,
+    text:String,
+    author:String
   });
 
-// const admin = mongoose.model('telelmarket', schema);
+const admin = mongoose.model('quote', schema);
 
-// app.get('/', async (req, res) => {
-//   admin.find()
-//   .then(users => res.json(users))
-//   .catch(err => res.status(400).json('Error: ' + err));
-// });
+app.get('/', async (req, res) => {
+  admin.find({"author":"Abraham Lincoln"})
+  .then(users => {
+
+    res.json(users)
+  })
+  .catch(err => res.status(400).json('Error: ' + err));
+});
 
 
 
