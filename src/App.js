@@ -1,23 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import RenderData from "./components/RenderData";
+import React, { useState } from "react";
 
 function App() {
+  let [activeTab, setActiveTab] = useState("");
+
+  const handleTabClick = (tabName) => {
+    if(tabName===activeTab){
+      setActiveTab("");
+    }
+    else{
+      setActiveTab(tabName);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div>
+      <div className="navbar">
+        <button
+          className={activeTab === "Love" ? "active" : ""}
+          onClick={() => handleTabClick("Love")}
         >
-          Learn React
-        </a>
-      </header>
+          <i className="bn31">
+            <span className="bn31span">Love</span>
+          </i>
+        </button>
+        <button
+          className={activeTab === "Wisdom" ? "active" : ""}
+          onClick={() => handleTabClick("Wisdom")}
+        >
+          <i className="bn31">
+            <span className="bn31span">Wisdom</span>
+          </i>
+        </button>
+        <button
+          className={activeTab === "Motivation" ? "active" : ""}
+          onClick={() => handleTabClick("Motivation")}
+        >
+          <i className="bn31">
+            <span className="bn31span">Motivation</span>
+          </i>
+        </button>
+        <button
+          className={activeTab === "Philosophy" ? "active" : ""}
+          onClick={() => handleTabClick("Philosophy")}
+        >
+          <i className="bn31">
+            <span className="bn31span">Philosophy</span>
+          </i>
+        </button>
+        <button
+          className={activeTab === "Hate" ? "active" : ""}
+          onClick={() => handleTabClick("Hate")}
+        >
+          <i className="bn31">
+            <span className="bn31span">Hate</span>
+          </i>
+        </button>
+      </div>
+
+      {activeTab === "Love" && <RenderData text="Love" />}
+      {activeTab === "Wisdom" && <RenderData text="Wisdom" />}
+      {activeTab === "Motivation" && <RenderData text="motivational" />}
+      {activeTab === "Philosophy" && <RenderData text="Philosophy" />}
+      {activeTab === "Hate" && <RenderData text="Hate" />}
+      {activeTab === "" && <RenderData text="" />}
     </div>
   );
 }
